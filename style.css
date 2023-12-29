@@ -1,0 +1,31 @@
+#board {
+    width: 85px; 
+    font-size: 0;
+}
+
+
+
+.cell {
+    width:  15px;
+    height: 15px;
+    border: 1px solid black;
+    display: inline-block;
+    background: url("state.png") no-repeat;
+}
+
+
+.hidden.cell {
+    background-position: 0px -52px;
+}
+
+.revealed.cell {
+    background-position: -40 0; 
+}
+
+.flagged.cell{
+    background-position: -80px 0; 
+}
+
+.bomb.cell{
+    background-position: -120px 0; 
+}

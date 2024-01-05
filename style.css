@@ -1,31 +1,43 @@
 #board {
-    width: 85px; 
+    width: 300px; 
     font-size: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 0fr);
 }
-
-
 
 .cell {
     width:  15px;
     height: 15px;
     border: 1px solid black;
-    display: inline-block;
     background: url("state.png") no-repeat;
 }
 
 
-.hidden.cell {
+.hidden.empty.cell {
+    background-position: 0px -51px;
+    cursor: pointer;
+}
+
+.hidden.mine.cell {
     background-position: 0px -52px;
+    cursor: pointer;
 }
 
-.revealed.cell {
-    background-position: -40 0; 
+.revealed.empty.cell {
+    background-position: -18px -52px; 
 }
 
-.flagged.cell{
-    background-position: -80px 0; 
+.revealed.mine.cell {
+    background-position: -86px -52px; 
 }
 
-.bomb.cell{
-    background-position: -120px 0; 
+.flagged.empty.cell{
+    background-position: -34px -52px; 
+    cursor: pointer;
 }
+
+.flagged.mine.cell{
+    background-position: -34px -52px; 
+    cursor: pointer;
+}
+

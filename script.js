@@ -1,71 +1,54 @@
-let cellArray = [];
-const size = 5
-const startBtn = document.getElementById('startBtn')
-
-
-
-class Cell {
-    constructor(row, col, isBomb, bombsAround) {
-        this.row = row;
-        this.col = col;
-        this.isBomb = isBomb;
-        this.bombsAround = bombsAround;
-        this.state = 'hidden'; 
+var cellArray = [];
+var size = 10;
+var startBtn = document.getElementById('startBtn');
+var mockData = document.getElementById("mock");
+var enumCellState;
+(function (enumCellState) {
+    enumCellState["Hidden"] = "hidden";
+    enumCellState["Revealed"] = "revealed";
+    enumCellState["Flagged"] = "flagged";
+})(enumCellState || (enumCellState = {}));
+var enumCellContent;
+(function (enumCellContent) {
+    enumCellContent["Empty"] = "empty";
+    enumCellContent["Mine"] = "mine";
+})(enumCellContent || (enumCellContent = {}));
+var Cell = /** @class */ (function () {
+    function Cell(n, gridSize) {
+        this.viewState = enumCellState.Hidden;
+        this.content = enumCellContent.Empty;
+        this.id = n + 1;
+        this.col = (n % gridSize) + 1;
+        this.row = Math.floor(n / gridSize) + 1;
+        var stateKeys = Object.keys(enumCellState);
+        var randomStateKey = stateKeys[Math.floor(Math.random() * stateKeys.length)];
+        this.viewState = enumCellState[randomStateKey];
+        this.content = Math.random() < 0.2 ? enumCellContent.Mine : enumCellContent.Empty;
     }
+    Cell.prototype.getCurrentHtml = function () {
+        return "<div\n    id = \"".concat(this.id, "\" \n    class=\" ").concat(this.viewState, "\n    ").concat(this.content, " cell\"\n    ></div>");
+    };
+    return Cell;
+}());
+for (var i = 0; i < size * size; i++) {
+    cellArray.push(new Cell(i, size));
 }
-
-
-function createCellArray() {
-    
-    cellArray = [];
-  
-    
-    for (let row = 0; row < size; row++) {
-      for (let col = 0; col < size; col++) {
-        const isBomb = Math.random() < 0.2;
-        cellArray.push(new Cell(row, col, isBomb, 0)); 
-      }
-    }
-  
-   
-    for (const cell of cellArray) {
-      cell.bombsAround = countBombsAround(cell.row, cell.col);
-    }
-  
-    renderBoard()
-    return cellArray;
-  }
-
-function countBombsAround(row, col) {
-    
-
-    let bombsCount = 0;
-
-   
-    for (let i = Math.max(0, row - 1); i <= Math.min(row + 1, size - 1); i++) {
-        for (let j = Math.max(0, col - 1); j <= Math.min(col + 1, size - 1); j++) {
-           
-            if (!(i === row && j === col) && cellArray.find(cell => cell.row === i && cell.col === j)?.isBomb) {
-                bombsCount++;
-            }
-        }
-    }
-
-    return bombsCount;
-}
-
 function renderBoard() {
-  const boardElement = document.getElementById("board");
-
-  boardElement.innerHTML = "";
-
-  for (const cell of cellArray) {
-      const cellElement = document.createElement("div");
-      cellElement.classList.add("cell", cell.state);
-
-      boardElement.appendChild(cellElement);
-  }
+    var boardElement = document.getElementById("board");
+    var htmlContent = "<div \n  style=\"width: 300px;  \n  font-size: 0; display: \n  grid;grid-template-columns: repeat(".concat(size, ", 0fr);\">");
+    for (var _i = 0, cellArray_1 = cellArray; _i < cellArray_1.length; _i++) {
+        var cell = cellArray_1[_i];
+        htmlContent += cell.getCurrentHtml();
+    }
+    htmlContent += "</div>";
+    boardElement.innerHTML = htmlContent;
+    boardElement.addEventListener("click", handleCellClick);
+    mockData.innerHTML = "<pre> ".concat(JSON.stringify(cellArray, null, 2), "</pre>");
 }
-
-
-startBtn.onclick  = createCellArray
+startBtn.addEventListener('click', renderBoard);
+function handleCellClick(event) {
+    var clickedCell = event.target.closest(".cell");
+    if (clickedCell) {
+        console.log(clickedCell.id);
+    }
+}

@@ -1,34 +1,71 @@
 #board {
-    width: 300px; 
+    width: 150px;
     font-size: 0;
     display: grid;
     grid-template-columns: repeat(5, 0fr);
 }
 
-.cell {
-    width:  15px;
-    height: 15px;
-    border: 1px solid black;
-    background: url("state.png") no-repeat;
+#topBar {
+    width: 170px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  
+  .cell {
+      width:  15px;
+      height: 15px;
+      border: 1px solid black;
+      background: url("state.png") no-repeat;
+    }
+    
+    
+    .hidden.mine.cell,
+    .hidden.empty.cell,
+    .hidden.mineNumber1.cell,
+    .hidden.mineNumber2.cell,
+    .hidden.mineNumber3.cell,
+    .hidden.mineNumber4.cell,
+    .hidden.mineNumber5.cell,
+    .hidden.mineNumber6.cell,
+    .hidden.mineNumber7.cell,
+    .hidden.mineNumber8.cell {
+        background-position: 0px -52px;
+        cursor: pointer;
+    }
+    
+    .revealed.empty.cell {
+        background-position: -18px -52px; 
+    }
+.revealed.mineNumber1.cell {
+    background-position: 0px -68px; 
 }
-
-
-.hidden.empty.cell {
-    background-position: 0px -51px;
-    cursor: pointer;
+.revealed.mineNumber2.cell {
+    background-position: -18px -68px; 
 }
-
-.hidden.mine.cell {
-    background-position: 0px -52px;
-    cursor: pointer;
+.revealed.mineNumber3.cell {
+    background-position: -34px -68px; 
 }
-
-.revealed.empty.cell {
-    background-position: -18px -52px; 
+.revealed.mineNumber4.cell {
+    background-position: -52px -68px; 
 }
-
+.revealed.mineNumber5.cell {
+    background-position: -68px -68px; 
+}
+.revealed.mineNumber6.cell {
+    background-position: -86px -68px; 
+}
+.revealed.mineNumber7.cell {
+    background-position: -102px -68px; 
+}
+.revealed.mineNumber8.cell {
+    background-position: -120px -68px; 
+}
 .revealed.mine.cell {
     background-position: -86px -52px; 
+}
+.gameOver.mine.cell {
+    background-position: -103px -52px; 
 }
 
 .flagged.empty.cell{
@@ -41,3 +78,36 @@
     cursor: pointer;
 }
 
+.digit-sprite {
+    width: 14px; 
+    height: 24px; 
+    background-image: url("state.png"); 
+}
+#timer {
+    display: flex;
+  }
+  
+  #bombCounter {
+    display: flex;
+  }
+
+
+.digit-0 { background-position:  -264px 0px }
+.digit-1 { background-position: 1px 0; }
+.digit-2 { background-position:  -13px 0; }
+.digit-3 { background-position: -27px 0; }
+  .digit-4 { background-position: -41px 0; }
+  .digit-5 { background-position: -55px 0; }
+  .digit-6 { background-position: -69px 0; }
+  .digit-7 { background-position: -84px 0; }
+  .digit-8 { background-position: -236px 0; }
+  .digit-9 { background-position: -250px 0; }
+
+
+
+  #resetBtn{
+    height: 28px;
+    width: 28px;
+    background: url("state.png") no-repeat;
+    background-position: 0 -24px;
+  }
